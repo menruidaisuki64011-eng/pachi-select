@@ -63,9 +63,9 @@ else:
 # レート換算ボーダーの計算
 target_border = round(border_4k * (2.0 if is_2pachi else 4.0), 1)
 unit_text = "500玉（1,000円）" if is_2pachi else "1,000玉（1,000円）"
-st.info(f"📊 **{display_name}** ｜ 目標ボーダー: **{unit_text} あたり {target_border} 回転以上**")
+st.info(f"📊 {display_name} ｜ 目標ボーダー: {unit_text} あたり {target_border} 回転以上")
 
-# --- 2. 過去3日間のデータ履歴（ユーザー指定項目） ---
+# --- 2. 過去3日間のデータ履歴 ---
 st.markdown("### 📊 SECTION 02 // 過去3日間の履歴同期")
 st.caption("※データランプの数字をそのまま入力してください")
 
@@ -74,13 +74,13 @@ with tab1:
     today_spin = st.number_input("本日の総回転数", min_value=0, max_value=9999, value=300, step=50, key="t_spin")
     today_bonus = st.number_input("本日の総大当り回数", min_value=0, max_value=100, value=3, step=1, key="t_bonus")
 with tab2:
-    yest_spin = st.number_input("前日の総回転数", min_value=0, max_value=9999, value=800, step=50, key=\"y_spin\")
-    yest_bonus = st.number_input("前日の総大当り回数", min_value=0, max_value=100, value=8, step=1, key=\"y_bonus\")
+    yest_spin = st.number_input("前日の総回転数", min_value=0, max_value=9999, value=800, step=50, key="y_spin")
+    yest_bonus = st.number_input("前日の総大当り回数", min_value=0, max_value=100, value=8, step=1, key="y_bonus")
 with tab3:
-    day_before_spin = st.number_input("前々日の総回転数", min_value=0, max_value=9999, value=1200, step=50, key=\"db_spin\")
-    day_before_bonus = st.number_input("前々日の総大当り回数", min_value=0, max_value=100, value=12, step=1, key=\"db_bonus\")
+    day_before_spin = st.number_input("前々日の総回転数", min_value=0, max_value=9999, value=1200, step=50, key="db_spin")
+    day_before_bonus = st.number_input("前々日の総大当り回数", min_value=0, max_value=100, value=12, step=1, key="db_bonus")
 
-# --- 3. スランプグラフの波（ユーザー指定項目） ---
+# --- 3. スランプグラフの波 ---
 st.markdown("### 📈 SECTION 03 // スランプグラフの視認調整")
 graph_trend = st.radio(
     "現在のスランプグラフの波の様子",
@@ -92,9 +92,9 @@ graph_trend = st.radio(
 st.markdown("### 🎯 SECTION 04 // 実戦釘回りの入力")
 st.caption("※座って最初の1,000円分を回した時点での、実際の回転数を入力します")
 if is_2pachi:
-    actual_spin = st.number_input(f"実際の回転数 ／ 1,000円（500玉）あたり", min_value=10.0, max_value=80.0, value=35.0, step=0.5)
+    actual_spin = st.number_input("実際の回転数 ／ 1,000円（500玉）あたり", min_value=10.0, max_value=80.0, value=35.0, step=0.5)
 else:
-    actual_spin = st.number_input(f"実際の回転数 ／ 1,000円（1,000玉）あたり", min_value=20.0, max_value=150.0, value=70.0, step=1.0)
+    actual_spin = st.number_input("実際の回転数 ／ 1,000円（1,000玉）あたり", min_value=20.0, max_value=150.0, value=70.0, step=1.0)
 
 # --- ハイブリッド解析アルゴリズム ---
 st.write("---")
@@ -107,7 +107,6 @@ if graph_trend == "📈 上がり調子（右肩上がり・好調波）":
 elif graph_trend == "📉 下がり調子（右肩下がり・ハマり波）":
     bonus_score -= 10
 
-# 過去の総稼働が高ければ、店が開けている可能性アップ（プラス評価）
 total_3day_spin = today_spin + yest_spin + day_before_spin
 if total_3day_spin >= 2000:
     bonus_score += 10
@@ -133,7 +132,7 @@ if total_score >= 75:
         <div style="background: linear-gradient(135deg, #135200 0%, #092b00 100%); border: 2px solid #52c41a; padding: 20px; border-radius: 8px; color: #f6ffed;">
             <h2 style="margin: 0; color: #b7eb8f;">💎 総合判定: 超・お宝台（即確保）</h2>
             <p style="margin: 10px 0 0 0; font-size: 0.95rem; line-height: 1.5;">
-                過去の履歴・波の勢い、そして何より【実際の回り】がすべて最高水準で噛み合いました！<br>
+                過去の履歴・波の勢い、精度抜群の回りがすべて最高水準で噛み合いました！<br>
                 5,000円の投資上限を死守しつつ、1万円以上の利益奪取へ向けて強気に全ツッパしてください！
             </p>
         </div>
